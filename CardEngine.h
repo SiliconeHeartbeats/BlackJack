@@ -227,7 +227,7 @@ public:
 		switch (choice) {
 		case 1:
 			gotoxy(0, (8 * j + 8));
-			std::cout << "Hit or stay? Enter 1 to hit, and any other key to stay: ";
+			std::cout << "Hit or stay? Enter 1 to hit, or 2 to stay: ";
 			break;
 		case 2:
 			gotoxy(0, (8 * j + 9));;
