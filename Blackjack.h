@@ -1,6 +1,6 @@
 #pragma once
 #include "CardEngine.h"
-Deck cards;
+Deck Cards;
 namespace blackjack {
 
 std::vector<int> DealerHand; //stores the value of the Dealer's hand for a given round.
@@ -11,9 +11,9 @@ std::vector<int> DealerDeal;
 //DealerHand, and storing the card number itself into DealerDeal so it can be reprinted after Player's turn.
 //
 	void Dealer() {
-		int dealt = cards.deal();
-		cards.printcard(dealt, 'd');
-		DealerHand.push_back(cards.value(dealt));
+		int dealt = Cards.deal();
+		Cards.printcard(dealt, 'd');
+		DealerHand.push_back(Cards.value(dealt));
 		DealerDeal.push_back(dealt);
 		return;
 
@@ -23,9 +23,9 @@ std::vector<int> DealerDeal;
 //multiple times in different rows in a given round, there is no player equivalent of DealerDeal. 
 //
 	void Player() {
-		int dealt = cards.deal();
-		cards.printcard(dealt, 'p');
-		PlayerHand.push_back(cards.value(dealt));
+		int dealt = Cards.deal();
+		Cards.printcard(dealt, 'p');
+		PlayerHand.push_back(Cards.value(dealt));
 		return;
 	}
 //Clears the vectors holding the values of previous turn. Effectively a discard, as well as bringing the cursor down
@@ -35,14 +35,14 @@ std::vector<int> DealerDeal;
 		PlayerHand.clear();
 		DealerHand.clear();
 		DealerDeal.clear();
-		cards.newhand();
+		Cards.newhand();
 		return;
 	}
 //Checks the value of the Player's hand. Effectively a neutered version of the already nauseating DealerWinCheck.
 //
 //
 	int PlayerWinCheck() {
-		int PlayerCheck = cards.handvalue(PlayerHand);
+		int PlayerCheck = Cards.handvalue(PlayerHand);
 		if (PlayerCheck == 21) { return 1; }
 		if (PlayerCheck > 21) { return 2; }
 		if (PlayerCheck < 21) { return 3; }
@@ -54,10 +54,10 @@ std::vector<int> DealerDeal;
 //then the Dealer is considered the winner. This does not force the Dealer to hit or stand on certain values, which along
 //with forcing the Ace to only be 11 eliminates much of the strategy of the game.
 	int DealerWinCheck() {
-		int DealerCheck = cards.handvalue(DealerHand);
+		int DealerCheck = Cards.handvalue(DealerHand);
 		if (DealerCheck == 21) { return 1; }
 		if (DealerCheck > 21) { return 2; }
-		if (DealerCheck < 21 && ((21-DealerCheck) < (21 - cards.handvalue(PlayerHand)))) {return 4;}
+		if (DealerCheck < 21 && ((21-DealerCheck) < (21 - Cards.handvalue(PlayerHand)))) {return 4;}
 		if (DealerCheck < 21) { return 3; }
 		else return 0;
 	}
@@ -67,7 +67,7 @@ std::vector<int> DealerDeal;
 	void SetTable() {
 		Dealer();
 		Dealer();
-		cards.newhand();
+		Cards.newhand();
 		Player();
 		Player();
 		return;
@@ -77,7 +77,7 @@ std::vector<int> DealerDeal;
 //
 	int PlayerTurn() {
 		int choice = 0;
-		cards.printprompt(1);
+		Cards.printprompt(1);
 		std::cin >> choice;
 		while (choice == 1) {
 			Player();
@@ -86,11 +86,11 @@ std::vector<int> DealerDeal;
 				return 1;
 			}
 			else if (check == 2) {
-				cards.printprompt(2);
+				Cards.printprompt(2);
 				return 2;
 			}
 			else if (check == 3) {
-				cards.printprompt(1);
+				Cards.printprompt(1);
 				std::cin >> choice;
 			}
 
@@ -102,23 +102,23 @@ std::vector<int> DealerDeal;
 //Otherwise it will loop through and the Dealer hit until 
 //it meets a win condition or busts.
 	int DealerTurn() {
-		cards.printcard(DealerDeal.at(0),'d');
-		cards.printcard(DealerDeal.at(1), 'd');
+		Cards.printcard(DealerDeal.at(0),'d');
+		Cards.printcard(DealerDeal.at(1), 'd');
 		int check = DealerWinCheck();
 		int choice = check;
 		while (choice == 3) {
 			check = DealerWinCheck();
 			if (check == 2) {
-				cards.printprompt(3);
+				Cards.printprompt(3);
 				return 2;
 			}
 			else if (check == 1) {
-				cards.printprompt(4);
+				Cards.printprompt(4);
 
 				return 1;
 			}
 			else if (check == 4) {
-				cards.printprompt(4);
+				Cards.printprompt(4);
 				return 1;
 			}
 			else if (check == 3) { 
@@ -126,7 +126,7 @@ std::vector<int> DealerDeal;
 				choice = 3;
 			}
 		}
-		cards.printprompt(4);
+		Cards.printprompt(4);
 
 		return 0;
 	}
@@ -141,7 +141,7 @@ std::vector<int> DealerDeal;
 			FreshHand();
 			return 0; }
 
-		cards.newhand();
+		Cards.newhand();
 		DealerTurn();
 		FreshHand();
 		return 0;
