@@ -1,7 +1,7 @@
 #pragma once
 #include "CardEngine.h"
 Deck cards;
-namespace Blackjack {
+namespace blackjack {
 
 std::vector<int> DealerHand; //stores the value of the Dealer's hand for a given round.
 std::vector<int> PlayerHand; //stores the value of the Player's hand for a given round.
