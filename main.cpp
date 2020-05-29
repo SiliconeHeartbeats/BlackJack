@@ -5,10 +5,10 @@ int main() {
 	int choice = 1;
 	int& pchoice = choice;
 	while (choice) {
-		cards.shuffle();
-		cards.resetscreen();
+		Cards.shuffle();
+		Cards.resetscreen();
 		blackjack::Blackjack();
-		cards.printprompt(5);
+		Cards.printprompt(5);
 		int spork;
 		std::cin >> spork;
 		
